@@ -2,14 +2,14 @@ package com.khanhhoang.helllo.msg;
 
 public interface IBaseRequest {
 
-    public boolean isStopped();
+    boolean isStopped();
 
-    public boolean isFailed();
+    boolean isFailed();
 
-    public void fail();
+    void fail();
 
-    public void fail(int result);
+    void fail(int result);
 
-    public void stop();
+    void stop();
 
 }

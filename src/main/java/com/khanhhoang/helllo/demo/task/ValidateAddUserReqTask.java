@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class ValidateAddUserReqTask extends AbstractTask<AddUserRequest, AddUserResponse> {
     @Override
     public void behaviors(AddUserRequest request, AddUserResponse response) {
-        if (request.getName() == null){
+        if (request.getName() == null) {
             log.error("Name null");
             request.fail(1);
             return;

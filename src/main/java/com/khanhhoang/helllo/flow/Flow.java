@@ -4,5 +4,5 @@ import com.khanhhoang.helllo.msg.BaseRequest;
 import com.khanhhoang.helllo.msg.BaseResponse;
 
 public interface Flow<T extends BaseRequest, R extends BaseResponse> {
-    public void run(T request, R response);
+    void run(T request, R response);
 }

@@ -2,11 +2,10 @@ package com.khanhhoang.helllo.controller;
 
 import com.khanhhoang.helllo.demo.msg.AddUserRequest;
 import com.khanhhoang.helllo.demo.msg.AddUserResponse;
-import com.khanhhoang.helllo.dto.UserDto;
-import com.khanhhoang.helllo.flow.Flow;
 import com.khanhhoang.helllo.demo.msg.GetAllUserRequest;
-import com.khanhhoang.helllo.model.UserEntity;
 import com.khanhhoang.helllo.demo.msg.GetAllUserResponse;
+import com.khanhhoang.helllo.flow.Flow;
+import com.khanhhoang.helllo.model.UserEntity;
 import com.khanhhoang.helllo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,11 +16,10 @@ import java.util.List;
 @RestController
 public class HelloController {
 
-    @Autowired
-    private  UserService userService;
-
     private final Flow<GetAllUserRequest, GetAllUserResponse> getAllUserFlow;
     private final Flow<AddUserRequest, AddUserResponse> addUserFlow;
+    @Autowired
+    private UserService userService;
 
     public HelloController(@Qualifier("GetAllUsersFlow") Flow<GetAllUserRequest, GetAllUserResponse> getAllUserFlow,
                            @Qualifier("AddUserFlow") Flow<AddUserRequest, AddUserResponse> addUserFlow) {

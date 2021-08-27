@@ -1,6 +1,6 @@
 package com.khanhhoang.helllo.msg;
 
-public class BaseResponse implements IBaseResponse{
+public class BaseResponse implements IBaseResponse {
     private long time = System.currentTimeMillis();
     private boolean stopped;
     private boolean failed;
