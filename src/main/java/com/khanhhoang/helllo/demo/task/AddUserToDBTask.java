@@ -24,6 +24,7 @@ public class AddUserToDBTask extends AbstractTask<AddUserRequest, AddUserRespons
         user.setName(request.getName());
         user.setStatus(request.getStatus());
         userService.addUser(user);
+        log.info("Add user");
         response.setUser(user);
     }
 }
