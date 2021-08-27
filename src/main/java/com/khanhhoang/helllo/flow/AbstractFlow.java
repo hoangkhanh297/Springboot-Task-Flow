@@ -19,6 +19,7 @@ public abstract class AbstractFlow<T extends BaseRequest, R extends BaseResponse
 
     @Override
     public void run(T request, R response) {
+        request.setResponse(response);
         runATask(request, response, 0);
     }
 

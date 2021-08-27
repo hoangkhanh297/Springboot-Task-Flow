@@ -1,5 +1,8 @@
 package com.khanhhoang.helllo.flow;
 
-public interface Flow<T extends Object, R extends Object> {
+import com.khanhhoang.helllo.msg.BaseRequest;
+import com.khanhhoang.helllo.msg.BaseResponse;
+
+public interface Flow<T extends BaseRequest, R extends BaseResponse> {
     public void run(T request, R response);
 }
