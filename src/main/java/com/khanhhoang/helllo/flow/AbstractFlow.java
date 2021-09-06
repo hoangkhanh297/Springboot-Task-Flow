@@ -3,11 +3,14 @@ package com.khanhhoang.helllo.flow;
 import com.khanhhoang.helllo.msg.BaseRequest;
 import com.khanhhoang.helllo.msg.BaseResponse;
 import com.khanhhoang.helllo.task.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractFlow<T extends BaseRequest, R extends BaseResponse> implements Flow<T, R> {
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
     private final List<Task<T, R>> tasks = new ArrayList<>();
     private final List<Integer> alwaysRun = new ArrayList<>();
 

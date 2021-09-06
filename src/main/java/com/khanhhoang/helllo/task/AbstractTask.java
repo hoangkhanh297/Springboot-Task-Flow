@@ -10,6 +10,13 @@ public abstract class AbstractTask<T extends BaseRequest, R extends BaseResponse
 
     @Override
     public void run(T request, R response) {
-        behaviors(request, response);
+        try {
+            behaviors(request, response);
+        } catch (Exception e) {
+            log.error("Error while executing task {}: ", this.getClass(), e);
+            request.fail(1);
+        }
     }
+
+    protected abstract void behaviors(T request, R response) throws Exception;
 }
