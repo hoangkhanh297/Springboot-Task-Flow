@@ -1,24 +1,15 @@
 package com.khanhhoang.helllo.demo.msg;
 
 import com.khanhhoang.helllo.msg.BaseRequest;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class AddUserRequest extends BaseRequest {
     private String name;
     private int status;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }

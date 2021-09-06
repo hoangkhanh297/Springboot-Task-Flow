@@ -1,8 +1,8 @@
 package com.khanhhoang.helllo.flow;
 
-import com.khanhhoang.helllo.msg.BaseRequest;
-import com.khanhhoang.helllo.msg.BaseResponse;
+import com.khanhhoang.helllo.msg.IBaseRequest;
+import com.khanhhoang.helllo.msg.IBaseResponse;
 
-public interface Flow<T extends BaseRequest, R extends BaseResponse> {
+public interface Flow<T extends IBaseRequest, R extends IBaseResponse> {
     void run(T request, R response);
 }
