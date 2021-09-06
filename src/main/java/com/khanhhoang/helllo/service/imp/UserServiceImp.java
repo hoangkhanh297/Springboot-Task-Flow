@@ -3,7 +3,6 @@ package com.khanhhoang.helllo.service.imp;
 import com.khanhhoang.helllo.model.UserEntity;
 import com.khanhhoang.helllo.repository.UserRepository;
 import com.khanhhoang.helllo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserServiceImp(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<UserEntity> getUsers() {

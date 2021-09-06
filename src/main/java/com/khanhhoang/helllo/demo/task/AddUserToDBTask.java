@@ -5,18 +5,16 @@ import com.khanhhoang.helllo.demo.msg.AddUserResponse;
 import com.khanhhoang.helllo.model.UserEntity;
 import com.khanhhoang.helllo.service.UserService;
 import com.khanhhoang.helllo.task.AbstractTask;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 @Qualifier("AddUserToDBTask")
+@AllArgsConstructor
 public class AddUserToDBTask extends AbstractTask<AddUserRequest, AddUserResponse> {
 
     private final UserService userService;
-
-    public AddUserToDBTask(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public void behaviors(AddUserRequest request, AddUserResponse response) {

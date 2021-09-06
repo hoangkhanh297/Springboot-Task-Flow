@@ -11,6 +11,4 @@ public interface UserService {
     List<UserEntity> getUserByName(String name);
 
     UserEntity addUser(UserEntity userEntity);
-
-
 }
