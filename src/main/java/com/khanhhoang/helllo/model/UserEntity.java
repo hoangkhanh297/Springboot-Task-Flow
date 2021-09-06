@@ -9,9 +9,9 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(name = "name")
     private String name;
-
+    @Column(name = "status")
     private Integer status;
 
     public Long getId() {
