@@ -8,6 +8,7 @@ import com.khanhhoang.helllo.repository.RoleRepository;
 import com.khanhhoang.helllo.repository.UserRepository;
 import com.khanhhoang.helllo.repository.UserRoleRepository;
 import com.khanhhoang.helllo.task.AbstractTask;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 @Service
 @Qualifier("AddUserToDBTask")
+@Slf4j
 public class AddUserToDBTask extends AbstractTask<AddUserRequest> {
 
     @Autowired

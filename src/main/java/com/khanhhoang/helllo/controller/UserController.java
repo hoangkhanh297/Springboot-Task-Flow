@@ -15,18 +15,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/auth/users")
     public Object getUsers() {
         return userService.getAll();
     }
 
-    @GetMapping("/user/search")
+    @GetMapping("/auth/user/search")
     public ResponseData<?> search(@RequestParam("keyword") String keyword) {
         return userService.search(keyword);
     }
 
-    @PostMapping("/user")
-    @PreAuthorize("!hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/admin/user")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseData<?> addUser(@RequestBody AddUserRequest addUserRequest) {
         return userService.add(addUserRequest);
     }

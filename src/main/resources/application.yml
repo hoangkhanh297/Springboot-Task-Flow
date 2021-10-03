@@ -1,0 +1,22 @@
+spring:
+  data:
+    rest:
+      default-media-type: 'application/json'
+  main:
+    banner-mode: 'console'
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: m123
+    url: jdbc:mysql://localhost:3310/test
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+logging:
+  level.*: DEBUG
+  pattern:
+    console: "%green(%d{yyyy-MM-dd HH:mm:ss}) %magenta([%thread]) %highlight(%-5level) %cyan(%logger{15}): %m%n%throwable"

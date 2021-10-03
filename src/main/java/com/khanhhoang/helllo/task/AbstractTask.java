@@ -2,12 +2,10 @@ package com.khanhhoang.helllo.task;
 
 import com.khanhhoang.helllo.base.data.ErrorCode;
 import com.khanhhoang.helllo.msg.BaseRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public abstract class AbstractTask<T extends BaseRequest> implements Task<T> {
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
-
     @Override
     public void run(T request) {
         try {
