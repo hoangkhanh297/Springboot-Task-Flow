@@ -1,4 +1,4 @@
 package com.khanhhoang.helllo.demo.msg;
 
-public class AddUserResponse {
+public class AuthenticationResponse {
 }

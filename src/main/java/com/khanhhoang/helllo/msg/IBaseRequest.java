@@ -1,5 +1,7 @@
 package com.khanhhoang.helllo.msg;
 
+import com.khanhhoang.helllo.base.data.ErrorCode;
+
 public interface IBaseRequest {
 
     boolean isStopped();
@@ -8,7 +10,7 @@ public interface IBaseRequest {
 
     void fail();
 
-    void fail(int result);
+    void fail(ErrorCode result);
 
     void stop();
 

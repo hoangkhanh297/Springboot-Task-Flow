@@ -1,49 +1,42 @@
 package com.khanhhoang.helllo.msg;
 
+import com.khanhhoang.helllo.base.data.ErrorCode;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class BaseRequest implements IBaseRequest {
     private long time = System.currentTimeMillis();
-    private BaseResponse response = new BaseResponse(this.time);
+    private boolean stopped;
+    private boolean failed;
+    private ErrorCode result;
 
     @Override
     public void fail() {
-        this.response.setStopped(true);
-        this.response.setFailed(true);
+        setStopped(true);
+        setFailed(true);
     }
 
     @Override
     public boolean isStopped() {
-        return response.isStopped();
+        return stopped;
     }
 
     @Override
     public boolean isFailed() {
-        return response.isFailed();
+        return failed;
     }
 
     @Override
-    public void fail(int result) {
+    public void fail(ErrorCode result) {
         fail();
-        this.response.setResult(result);
+        setResult(result);
     }
 
     @Override
     public void stop() {
-        this.response.setStopped(true);
+        setStopped(true);
     }
 
-    public BaseResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(BaseResponse response) {
-        this.response = response;
-    }
-
-    public long getTime() {
-        return time;
-    }
-
-    public void setTime(long time) {
-        this.time = time;
-    }
 }

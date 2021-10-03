@@ -9,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class GetAllUserRequest extends BaseRequest {
+public class SearchUserRequest extends BaseRequest {
+    private String text;
     private List<UserEntity> response;
 }
