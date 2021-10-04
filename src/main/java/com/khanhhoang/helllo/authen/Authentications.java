@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +19,7 @@ public class Authentications implements Authentication {
     private boolean authenticate;
 
     @Override
+    @Transactional
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (var role : roles) {
@@ -39,7 +41,7 @@ public class Authentications implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return user.getUserId();
+        return user.getId();
     }
 
     @Override

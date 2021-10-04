@@ -1,8 +1,10 @@
 package com.khanhhoang.helllo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -14,9 +16,13 @@ import javax.persistence.*;
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long id;
     @NonNull
     @Column(unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
+    private Set<UserEntity> users;
 
 }
