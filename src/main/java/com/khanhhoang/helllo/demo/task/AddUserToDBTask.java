@@ -1,5 +1,6 @@
 package com.khanhhoang.helllo.demo.task;
 
+import com.khanhhoang.helllo.base.data.ResultCode;
 import com.khanhhoang.helllo.demo.msg.AddUserRequest;
 import com.khanhhoang.helllo.model.RoleEntity;
 import com.khanhhoang.helllo.model.UserEntity;
@@ -27,6 +28,11 @@ public class AddUserToDBTask extends AbstractTask<AddUserRequest> {
     @Override
     public void behaviors(AddUserRequest request) throws Exception {
         log.info("Add user");
+        if (userRepository.existsByUsername(request.getUsername())) {
+            log.error("Username {} already in used", request.getUsername());
+            request.fail(ResultCode.User.USERNAME_ALREADY_EXISTS);
+            return;
+        }
         var user = new UserEntity();
         user.setName(request.getName());
         user.setStatus(request.getStatus());

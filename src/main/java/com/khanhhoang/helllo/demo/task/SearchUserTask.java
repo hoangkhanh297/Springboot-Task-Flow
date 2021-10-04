@@ -18,7 +18,7 @@ public class SearchUserTask extends AbstractTask<SearchUserRequest> {
 
     @Override
     protected void behaviors(SearchUserRequest request) throws Exception {
-        var users = userRepository.search(request.getText());
+        var users = userRepository.fullTextSearchUsernameAndName(request.getText());
         request.setResponse(users);
     }
 }

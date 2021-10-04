@@ -17,10 +17,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     UserEntity findByUsername(String username);
 
+    boolean existsByUsername(String username);
+
     Optional<UserEntity> findByUsernameAndPassword(String username, String password);
 
     @Query(value = "select  * from user where MATCH(name, username) AGAINST (?1)", nativeQuery = true)
-    List<UserEntity> search(String keyword);
+    List<UserEntity> fullTextSearchUsernameAndName(String keyword);
 
 
 }

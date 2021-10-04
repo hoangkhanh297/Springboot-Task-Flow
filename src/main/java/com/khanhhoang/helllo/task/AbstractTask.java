@@ -1,6 +1,6 @@
 package com.khanhhoang.helllo.task;
 
-import com.khanhhoang.helllo.base.data.ErrorCode;
+import com.khanhhoang.helllo.base.data.ResultCode;
 import com.khanhhoang.helllo.msg.BaseRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,7 +12,7 @@ public abstract class AbstractTask<T extends BaseRequest> implements Task<T> {
             behaviors(request);
         } catch (Exception e) {
             log.error("Error while executing task {}: ", this.getClass(), e);
-            request.fail(ErrorCode.SYSTEM_ERROR);
+            request.fail(ResultCode.SYSTEM_ERROR);
         }
     }
 

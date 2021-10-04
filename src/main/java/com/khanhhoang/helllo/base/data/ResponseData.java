@@ -11,18 +11,18 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseData<T> {
     private T data;
-    private ErrorCode result;
+    private ResultCode result;
 
-    public static <T> ResponseData<T> of(T data, ErrorCode result) {
+    public static <T> ResponseData<T> of(T data, ResultCode result) {
         return new ResponseData<>(data, result);
     }
 
-    public static <T> ResponseData<T> error(ErrorCode result) {
+    public static <T> ResponseData<T> error(ResultCode result) {
         return new ResponseData<>(null, result);
     }
 
     public static <T> ResponseData<T> ok(T data) {
-        return new ResponseData<>(data, ErrorCode.SUCCESS);
+        return new ResponseData<>(data, ResultCode.SUCCESS);
     }
 
 }

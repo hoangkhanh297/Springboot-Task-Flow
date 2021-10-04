@@ -12,7 +12,7 @@ public abstract class AbstractFlow<T extends BaseRequest> implements Flow<T> {
     private final List<Task<T>> tasks = new ArrayList<>();
     private final List<Integer> alwaysRun = new ArrayList<>();
 
-    private void runATask(T request, int index) {
+    private void runATask(T request, final int index) {
         if (index == tasks.size()) {
             return;
         }

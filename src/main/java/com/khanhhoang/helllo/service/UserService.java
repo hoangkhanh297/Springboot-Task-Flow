@@ -1,6 +1,5 @@
 package com.khanhhoang.helllo.service;
 
-import com.khanhhoang.helllo.base.data.ErrorCode;
 import com.khanhhoang.helllo.base.data.ResponseData;
 import com.khanhhoang.helllo.demo.msg.AddUserRequest;
 import com.khanhhoang.helllo.demo.msg.GetAllUserRequest;
@@ -27,7 +26,7 @@ public class UserService {
         var request = new GetAllUserRequest();
         getAllUserFlow.run(request);
         if (request.isFailed()) {
-            return ResponseData.error(ErrorCode.SYSTEM_ERROR);
+            return ResponseData.error(request.getResult());
         }
         return ResponseData.ok(request.getResponse());
     }
@@ -35,7 +34,7 @@ public class UserService {
     public ResponseData<?> add(AddUserRequest request) {
         addUserFlow.run(request);
         if (request.isFailed()) {
-            return ResponseData.error(ErrorCode.SYSTEM_ERROR);
+            return ResponseData.error(request.getResult());
         }
         return ResponseData.ok(request.getResponse());
     }
@@ -45,7 +44,7 @@ public class UserService {
         searchRequest.setText(keyword);
         searchUserFlow.run(searchRequest);
         if (searchRequest.isFailed()) {
-            return ResponseData.error(ErrorCode.SYSTEM_ERROR);
+            return ResponseData.error(searchRequest.getResult());
         }
         return ResponseData.ok(searchRequest.getResponse());
     }

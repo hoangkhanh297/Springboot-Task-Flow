@@ -1,6 +1,6 @@
 package com.khanhhoang.helllo.msg;
 
-import com.khanhhoang.helllo.base.data.ErrorCode;
+import com.khanhhoang.helllo.base.data.ResultCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ public abstract class BaseRequest implements IBaseRequest {
     private long time = System.currentTimeMillis();
     private boolean stopped;
     private boolean failed;
-    private ErrorCode result;
+    private ResultCode result;
 
     @Override
     public void fail() {
@@ -29,7 +29,7 @@ public abstract class BaseRequest implements IBaseRequest {
     }
 
     @Override
-    public void fail(ErrorCode result) {
+    public void fail(ResultCode result) {
         fail();
         setResult(result);
     }

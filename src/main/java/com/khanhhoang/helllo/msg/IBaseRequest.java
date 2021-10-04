@@ -1,6 +1,6 @@
 package com.khanhhoang.helllo.msg;
 
-import com.khanhhoang.helllo.base.data.ErrorCode;
+import com.khanhhoang.helllo.base.data.ResultCode;
 
 public interface IBaseRequest {
 
@@ -10,7 +10,7 @@ public interface IBaseRequest {
 
     void fail();
 
-    void fail(ErrorCode result);
+    void fail(ResultCode result);
 
     void stop();
 
