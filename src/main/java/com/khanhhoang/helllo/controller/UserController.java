@@ -26,13 +26,13 @@ public class UserController {
     }
 
     @GetMapping("/auth/user/search")
-    public ResponseData<?> search(@RequestParam("keyword") String keyword) {
+    public ResponseData<List<UserEntity>> search(@RequestParam("keyword") String keyword) {
         return userService.search(keyword);
     }
 
     @PostMapping("/admin/user")
     @Operation(security = {@SecurityRequirement(name = "Authorization")}, description = "Do not call")
-    public ResponseData<?> addUser(@RequestBody AddUserRequest addUserRequest) {
+    public ResponseData<UserEntity> addUser(@RequestBody AddUserRequest addUserRequest) {
         return userService.add(addUserRequest);
     }
 
