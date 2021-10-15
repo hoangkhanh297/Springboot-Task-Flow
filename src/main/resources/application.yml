@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: "/khanh"
+
 spring:
   data:
     rest:
@@ -11,7 +15,6 @@ spring:
     url: jdbc:mysql://localhost:3310/test
   jpa:
     hibernate:
-      enable_lazy_load_no_trans: true
       ddl-auto: update
     properties:
       hibernate:

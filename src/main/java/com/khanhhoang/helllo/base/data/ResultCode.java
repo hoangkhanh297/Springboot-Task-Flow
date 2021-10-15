@@ -21,5 +21,6 @@ public class ResultCode {
 
     public static final class User {
         public static final ResultCode USERNAME_ALREADY_EXISTS = of(100, "Username already exists", "Tài khoản đã tồn tại");
+        public static final ResultCode INVALID_LOGIN = of(100, "Invalid login", "Tài khoản hoặc mật khẩu không khớp");
     }
 }

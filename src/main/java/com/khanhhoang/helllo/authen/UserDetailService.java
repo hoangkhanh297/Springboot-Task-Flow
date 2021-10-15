@@ -23,6 +23,7 @@ public class UserDetailService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository.findByUsername(username);
+        if (user == null) throw new UsernameNotFoundException("Username {} is not exists");
         return new UserDetails() {
             @Override
             @Transactional
@@ -44,22 +45,22 @@ public class UserDetailService implements UserDetailsService {
 
             @Override
             public boolean isAccountNonExpired() {
-                return true;
+                return user.getStatus() == 1;
             }
 
             @Override
             public boolean isAccountNonLocked() {
-                return true;
+                return user.getStatus() == 1;
             }
 
             @Override
             public boolean isCredentialsNonExpired() {
-                return true;
+                return user.getStatus() == 1;
             }
 
             @Override
             public boolean isEnabled() {
-                return true;
+                return user.getStatus() == 1;
             }
         };
     }

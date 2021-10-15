@@ -1,51 +1,40 @@
 package com.khanhhoang.helllo.service;
 
 import com.khanhhoang.helllo.base.data.ResponseData;
+import com.khanhhoang.helllo.demo.flow.GetAllUsersFlow;
 import com.khanhhoang.helllo.demo.msg.AddUserRequest;
-import com.khanhhoang.helllo.demo.msg.GetAllUserRequest;
-import com.khanhhoang.helllo.demo.msg.SearchUserRequest;
 import com.khanhhoang.helllo.flow.Flow;
+import com.khanhhoang.helllo.model.UserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Slf4j
 @Service
 public class UserService {
 
     @Autowired
-    @Qualifier("GetAllUsersFlow")
-    Flow<GetAllUserRequest> getAllUserFlow;
+    private GetAllUsersFlow getAllUserFlow;
     @Autowired
     @Qualifier("AddUserFlow")
-    Flow<AddUserRequest> addUserFlow;
+    private Flow<AddUserRequest, UserEntity> addUserFlow;
     @Autowired
     @Qualifier("SearchUserFlow")
-    Flow<SearchUserRequest> searchUserFlow;
+    private Flow<String, List<UserEntity>> searchUserFlow;
 
-    public ResponseData<?> getAll() {
-        var request = new GetAllUserRequest();
-        getAllUserFlow.run(request);
-        if (request.isFailed()) {
-            return ResponseData.error(request.getResult());
-        }
-        return ResponseData.ok(request.getResponse());
+    public ResponseData<List<UserEntity>> getAll() {
+        //Can change to return getAllUserFlow.run(null);
+        return getAllUserFlow.run();
     }
 
-    public ResponseData<?> add(AddUserRequest request) {
-        addUserFlow.run(request);
-        if (request.isFailed()) {
-            return ResponseData.error(request.getResult());
-        }
-        return ResponseData.ok(request.getResponse());
+    public ResponseData<UserEntity> add(AddUserRequest request) {
+        return addUserFlow.run(request);
     }
 
-    public ResponseData<?> search(String keyword) {
-        var searchRequest = new SearchUserRequest();
-        searchRequest.setText(keyword);
-        searchUserFlow.run(searchRequest);
-        if (searchRequest.isFailed()) {
-            return ResponseData.error(searchRequest.getResult());
-        }
-        return ResponseData.ok(searchRequest.getResponse());
+    public ResponseData<List<UserEntity>> search(String keyword) {
+        return searchUserFlow.run(keyword);
     }
 }

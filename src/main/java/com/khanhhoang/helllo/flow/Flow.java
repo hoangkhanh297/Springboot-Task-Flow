@@ -1,7 +1,9 @@
 package com.khanhhoang.helllo.flow;
 
-import com.khanhhoang.helllo.msg.IBaseRequest;
+import com.khanhhoang.helllo.base.data.ResponseData;
 
-public interface Flow<T extends IBaseRequest> {
-    void run(T request);
+public interface Flow<T, R> {
+    ResponseData<R> run(T request);
+
+    ResponseData<R> run();
 }

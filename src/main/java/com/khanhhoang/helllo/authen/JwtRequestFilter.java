@@ -3,7 +3,6 @@ package com.khanhhoang.helllo.authen;
 import com.khanhhoang.helllo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -33,40 +32,35 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
         try {
-            if (requestTokenHeader == null || !requestTokenHeader.startsWith("Bearer ")) {
-                log.error("Token null or invalid: {}", requestTokenHeader);
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                return;
+            if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+                var token = requestTokenHeader.substring(7);
+                if (jwtUtil.isTokenExpired(token)) {
+                    log.error("Token expired {}", token);
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+                var username = jwtUtil.extractUsername(token);
+                if (username == null) {
+                    log.error("Username is null from token");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+                var user = userRepository.findByUsername(username);
+                if (user == null) {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+                var userDetails = userDetailsService.loadUserByUsername(username);
+                var authentication = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                log.info("New request [{}] from: {}", request.getRequestURI(), username);
             }
-            var token = requestTokenHeader.substring(7);
-            if (jwtUtil.isTokenExpired(token)) {
-                log.error("Token expired {}", token);
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                return;
-            }
-            var username = jwtUtil.extractUsername(token);
-            if (username == null) {
-                log.error("Username is null from token");
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                return;
-            }
-            var user = userRepository.findByUsername(username);
-            if (user == null) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-                return;
-            }
-            var userDetails = userDetailsService.loadUserByUsername(username);
-            var authentication = new UsernamePasswordAuthenticationToken(
-                    userDetails, null, userDetails.getAuthorities());
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.info("New request from: {}", username);
             filterChain.doFilter(request, response);
         } catch (Exception ex) {
-            logger.error("Do filter token error: " + ex.getMessage());
-            ex.printStackTrace();
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("Unauthorized");
+            logger.error("Do filter token error: ", ex);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
     }
 

@@ -1,23 +1,30 @@
 package com.khanhhoang.helllo.demo.task;
 
-import com.khanhhoang.helllo.demo.msg.GetAllUserRequest;
+import com.khanhhoang.helllo.model.UserEntity;
+import com.khanhhoang.helllo.msg.Delegate;
 import com.khanhhoang.helllo.repository.UserRepository;
 import com.khanhhoang.helllo.task.AbstractTask;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Qualifier("GetAllUserFromDBTask")
 @Slf4j
-public class GetAllUserFromDBTask extends AbstractTask<GetAllUserRequest> {
+@RequiredArgsConstructor
+public class GetAllUserFromDBTask extends AbstractTask<Object, List<UserEntity>> {
 
-    @Autowired
-    private UserRepository userRepository;
+    @NonNull
+    private final UserRepository userRepository;
 
     @Override
-    public void behaviors(GetAllUserRequest request) {
-        request.setResponse(userRepository.findAll());
+    protected void behaviors(Object request, Delegate<List<UserEntity>> delegate) throws Exception {
+        UserEntity user = (UserEntity) delegate.getExtra("Haha");
+        log.info("User {}", user);
+        delegate.getResponse().setData(userRepository.findAll());
     }
 }
